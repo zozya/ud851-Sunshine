@@ -36,9 +36,17 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     @Override
     public ForecastAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        int viewListItem = R.layout.forecast_list_item;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(viewListItem, parent, false);
+        View view = null;
+        try {
+            Context context = parent.getContext();
+            int viewListItem = R.layout.forecast_list_item;
+            LayoutInflater inflater = LayoutInflater.from(context);
+            view = inflater.inflate(viewListItem, parent, false);
+
+        } catch (Exception e) {
+            System.out.print("Error: " + e);
+        }
+
         return new ForecastAdapterViewHolder(view);
     }
 

@@ -221,7 +221,25 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
+        // DONE (2) Launch the map when the map menu item is clicked
+        if(id == R.id.action_map_open) {
+            double[] coordinates = SunshinePreferences.getDefaultWeatherCoordinates();
+            Uri.Builder builder = new Uri.Builder();
+
+            if(coordinates.length == 2) {
+                builder.scheme("geo");
+                builder.appendQueryParameter("latitude", String.valueOf(coordinates[0]) );
+                builder.appendQueryParameter("longitude", String.valueOf(coordinates[1]) );
+
+                Uri adress = builder.build();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(adress);
+                if(intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

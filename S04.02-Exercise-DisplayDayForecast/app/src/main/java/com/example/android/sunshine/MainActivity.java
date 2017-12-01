@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
     private TextView mErrorMessageDisplay;
 
     private ProgressBar mLoadingIndicator;
+    private final String  WEATHER_STRING = "weather";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         Context context = this;
         Class destinationClass = DetailActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-        // TODO (1) Pass the weather to the DetailActivity
+        // DONE(1) Pass the weather to the DetailActivity
+        intentToStartDetailActivity.putExtra(WEATHER_STRING, weatherForDay);
         startActivity(intentToStartDetailActivity);
     }
 

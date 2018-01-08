@@ -109,7 +109,8 @@ public class WeatherProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
 
         Cursor ret;
-        if(match == CODE_WEATHER || match == CODE_WEATHER_WITH_DATE) {
+        switch(match) {
+            case CODE_WEATHER:
             ret = db.query(WeatherContract.WeatherEntry.TABLE_NAME,
                     projection,
                     selection,
@@ -117,13 +118,26 @@ public class WeatherProvider extends ContentProvider {
                     null,
                     null,
                     sortOrder);
-        } else {
-            throw new RuntimeException("Unknown uri: " + uri);
+        break;
+            case CODE_WEATHER_WITH_DATE:
+                String id = uri.getLastPathSegment();
+                String[] selectionArguments = new String[]{id};
+                ret = db.query(WeatherContract.WeatherEntry.TABLE_NAME,
+                        projection,
+                        WeatherContract.WeatherEntry.COLUMN_DATE + " = ? ",
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            default:
+                throw new RuntimeException("Unknown uri: " + uri);
         }
 
 //      DONE (10) Call setNotificationUri on the cursor and then return the cursor
         if(ret != null)
-            getContext().getContentResolver().notifyChange(uri, null);
+            ret.setNotificationUri(getContext().getContentResolver(), uri);
+
 
         return ret;
     }

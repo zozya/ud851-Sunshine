@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements
     public static final int INDEX_COLUMN_DATE = 0;
     public static final int INDEX_COLUMN_MIN_TEMP = 1;
     public static final int INDEX_COLUMN_MAX_TEMP = 2;
+    public static final int INDEX_COLUMN_WEATHER_ID = 3;
 
 
     //  DONE (37) Remove the error TextView

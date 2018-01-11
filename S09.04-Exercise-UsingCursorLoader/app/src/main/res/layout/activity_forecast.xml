@@ -39,13 +39,12 @@
         android:clipToPadding="false"
         android:paddingBottom="8dp"/>
 
-    <!-- TODO (38) Remove this error message TextView -->
+    <!-- DONE (38) Remove this error message TextView -->
     <TextView
-        android:id="@+id/tv_error_message_display"
+        android:id="@+id/t_error_message_displayv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="@string/error_message"
         android:textSize="20sp"
         android:visibility="invisible" />
 

@@ -17,6 +17,7 @@ package com.example.android.sunshine;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      * @param clickHandler The on-click handler for this adapter. This single handler is called
      *                     when an item is clicked.
      */
-    public ForecastAdapter(ForecastAdapterOnClickHandler clickHandler, Context context) {
+    public ForecastAdapter(@NonNull Context context, ForecastAdapterOnClickHandler clickHandler) {
         mClickHandler = clickHandler;
         mContext = context;
     }
@@ -105,9 +106,11 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     public void onBindViewHolder(ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
 //      DONE (5) Delete the current body of onBindViewHolder
 //      DONE(6) Move the cursor to the appropriate position
-        mCursor.move(position);
+        mCursor.moveToPosition(position);
 //      DONE (7) Generate a weather summary with the date, description, high and low
 
+        int weatherId = mCursor.getInt(MainActivity.INDEX_COLUMN_WEATHER_ID);
+        String description = SunshineWeatherUtils.getStringForWeatherCondition(mContext, weatherId);
         long date = mCursor.getLong(MainActivity.INDEX_COLUMN_DATE);
 
         String sDate = SunshineDateUtils.getFriendlyDateString(mContext, date, false);
@@ -117,7 +120,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
         StringBuilder sb = new StringBuilder();
         sb.append(sDate + "-");
-        sb.append(sTemp + "-");
+        sb.append(description + "-");
+        sb.append(sTemp);
 
 //      DONE (8) Display the summary that you created above
         forecastAdapterViewHolder.weatherSummary.setText(sb.toString());

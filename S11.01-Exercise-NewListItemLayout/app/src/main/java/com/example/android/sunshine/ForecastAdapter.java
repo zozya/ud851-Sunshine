@@ -125,6 +125,9 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
          /* Read low temperature from the cursor (in degrees celsius) */
         double lowInCelsius = mCursor.getDouble(MainActivity.INDEX_WEATHER_MIN_TEMP);
 
+        String max_temp = SunshineWeatherUtils.formatTemperature(mContext, highInCelsius);
+        String min_temp = SunshineWeatherUtils.formatTemperature(mContext, lowInCelsius);
+
         //String highAndLowTemperature =
         //        SunshineWeatherUtils.formatHighLows(mContext, highInCelsius, lowInCelsius);
 
@@ -140,8 +143,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
         forecastAdapterViewHolder.mDayInfo.setText(dateString);
         forecastAdapterViewHolder.mWeatherDescr.setText(description);
-        forecastAdapterViewHolder.mMinTemp.setText(Double.toString(lowInCelsius));
-        forecastAdapterViewHolder.mMinTemp.setText(Double.toString(highInCelsius));
+        forecastAdapterViewHolder.mMinTemp.setText(min_temp);
+        forecastAdapterViewHolder.mMaxTemp.setText(max_temp);
     }
 
     /**
